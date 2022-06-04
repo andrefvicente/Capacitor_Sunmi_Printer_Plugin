@@ -110,6 +110,29 @@ public class SunmiPrinter extends Plugin {
     }
 
     @PluginMethod()
+    public void printTicket(PluginCall call){
+        String ticket = call.getString("ticket");
+        Log.d("Ticket", ticket);
+
+        String pureBase64Encoded = ticket.substring(ticket.indexOf(",") + 1);
+        byte[] decodedString = Base64.decode(pureBase64Encoded, Base64.DEFAULT);
+
+        Bitmap bitmap;
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inTargetDensity = 160;
+        options.inDensity = 160;
+
+        bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length, options);
+
+        BluetoothUtil.sendData(ESCUtil.printBitmap(bitmap));
+
+        JSObject ret = new JSObject();
+        ret.put("results", true);
+        call.success(ret);
+    }
+
+    @PluginMethod()
     public void printCommand(PluginCall call) {
         String command = call.getString("command");
         Log.d("Command", command);
