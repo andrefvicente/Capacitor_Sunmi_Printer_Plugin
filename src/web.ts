@@ -9,9 +9,9 @@ export class SunmiPrinterWeb extends WebPlugin implements SunmiPrinterPlugin {
     });
   }
 
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  async echo(_options: { value: string }): Promise<{ value: string }> {
+    console.log('ECHO', _options);
+    return _options;
   }
 
   async discoverPrinters(): Promise<{ results: any[] }> {
@@ -19,16 +19,16 @@ export class SunmiPrinterWeb extends WebPlugin implements SunmiPrinterPlugin {
       results: [{
         name: 'Dummy1',
         address: '123456'
-      },{
+      }, {
         name: 'Dummy2',
         address: '456789'
       }]
     };
   }
 
-  async connectPrinter(options: {address: string}): Promise<{ results: boolean }> {
+  async connectPrinter(_options: { address: string }): Promise<{ results: boolean }> {
     console.log("options");
-    console.log(options);
+    console.log(_options);
     return {
       results: true
     };
@@ -40,27 +40,27 @@ export class SunmiPrinterWeb extends WebPlugin implements SunmiPrinterPlugin {
     };
   }
 
-  async printString( options: { contents: string, is_bold: boolean, is_underline: boolean } ): Promise<{ results: boolean }> {
+  async printString(_options: { contents: string, is_bold: boolean, is_underline: boolean }): Promise<{ results: boolean }> {
     console.log("options");
-    console.log(options);
-    
-    return {
-      results: true
-    };
-  }
-
-  async printBarcode(options: {barcode: string }): Promise<{ results: boolean }> {
-    console.log("options");
-    console.log(options);
+    console.log(_options);
 
     return {
       results: true
     };
   }
 
-  async printCommand(options: {command: string}): Promise<{ results: boolean }> {
+  async printBarcode(_options: { barcode: string }): Promise<{ results: boolean }> {
     console.log("options");
-    console.log(options);
+    console.log(_options);
+
+    return {
+      results: true
+    };
+  }
+
+  async printCommand(_options: { command: string }): Promise<{ results: boolean }> {
+    console.log("options");
+    console.log(_options);
 
     return {
       results: true
@@ -78,5 +78,3 @@ const SunmiPrinter = new SunmiPrinterWeb();
 
 export { SunmiPrinter };
 
-import { registerWebPlugin } from '@capacitor/core';
-registerWebPlugin(SunmiPrinter);
